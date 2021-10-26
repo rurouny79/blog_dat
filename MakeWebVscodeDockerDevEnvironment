@@ -1,0 +1,53 @@
+created date : 2021.10.26
+
+#
+# install docker (https://docs.docker.com/engine/install/ubuntu)
+#
+$ sudo apt-get remove docker docker-engine docker.io containerd runc
+
+$ sudo apt-get update
+
+$ sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+$ echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+$ sudo apt-get update
+
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+- docker priviledge modify
+$ sudo usermod -a -G docker $USER
+
+#
+# make ubuntu docker container
+#
+
+# install code-server inside docker container
+curl -fsSL https://code-server.dev/install.sh | sh
+
+# make base ubuntu-code-server docker image
+
+#
+# (Optional) docker command basic
+#
+- docker image list
+$ docker images
+
+- docker continaer list
+$ docker ps -a
+
+- add docker port forwarding rule
+$ docker stop container01
+$ docker commit container01 image01
+$ docker rm container01
+$ docker run -p 1000:8080 --name container01 image01
+
+
