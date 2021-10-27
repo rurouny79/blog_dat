@@ -1,0 +1,11 @@
+test environment : ryzen 5950x / docker
+
+-j8  : 1.59s
+-j12 : 1.32s
+-j16 : 1.19s
+-j20 : 1.14s
+-j24 : 1.13s
+-j28 : 1.10s
+-j32 : 1.9s
+-j36 : 1.10s
+-j40 : 1.11s
