@@ -1,0 +1,22 @@
+server setting in ubuntu 21.10
+
+1. code-server
+  * /home/ruro/.config/code-server/config.yaml
+    - bind-addr: 0.0.0.0:8080
+    - password: '????????'
+
+1. docker
+  * ~
+
+1. smbd
+  * /etc/samba/smb.conf
+    - [homes]
+    - comment = Home Directories
+    - browseable = no
+    - read only = no
+    - valid users = %S
+    - path = /data/samba
+
+1. svn
+
+1. git
