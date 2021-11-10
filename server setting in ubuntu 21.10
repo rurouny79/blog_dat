@@ -44,6 +44,7 @@ server setting in ubuntu 21.10
   * mkdir /data/svn
   * htpasswd -c /data/svn/dav_svn.passwd ruro
   * svnadmin create /data/svn/main
+  * svnadmin load /data/svn/main < svn.dump
   * chown -R www-data:www-data /data/svn
   * a2enmod ssl
   * a2ensite default-ssl
@@ -51,6 +52,7 @@ server setting in ubuntu 21.10
   * (Optional) vi /etc/apache2/sites-available/default-ssl.conf
     - SSLCertificateFile : 인증서위치(.crt)
     - SSLCertificateKeyFile : 개인키위치(.key)
+  * (Optional-not using apache2) svn list svn+ssh://ruro@192.168.0.2/data/svn/main
 
 1. docker
   * ~
