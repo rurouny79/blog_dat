@@ -57,3 +57,6 @@ server setting in ubuntu 21.10
 
 1. docker
   * ~
+
+1. disk check
+  * sudo smartctl --all /dev/sdb
