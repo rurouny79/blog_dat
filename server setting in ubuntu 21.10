@@ -17,9 +17,6 @@ server setting in ubuntu 21.10
     - bind-addr: 0.0.0.0:8080
     - password: '????????'
 
-1. docker
-  * ~
-
 1. smbd
   * /etc/samba/smb.conf
     - [homes]
@@ -32,3 +29,6 @@ server setting in ubuntu 21.10
 1. svn
 
 1. git
+
+1. docker
+  * ~
