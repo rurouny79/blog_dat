@@ -30,9 +30,27 @@ server setting in ubuntu 21.10
     - valid users = %S
     - path = /data/samba
 
-1. svn
-
-1. git
+1. svn (https)
+  * apt install subversion apache2 libapache2-mod-svn
+  * vi /etc/apache2/mods-available/dav_svn.conf
+    - <Location /svn>
+    - DAV svn
+    - SVNParentPath /data/svn
+    - AuthType Basic
+    - AuthName "Blackbox Subversion repositories"
+    - AuthUserFile /data/svn/dav_svn.passwd
+    - Require valid-user
+    - </Location>
+  * mkdir /data/svn
+  * htpasswd -c /data/svn/dav_svn.passwd ruro
+  * svnadmin create /data/svn/main
+  * chown -R www-data:www-data /data/svn
+  * a2enmod ssl
+  * a2ensite default-ssl
+  * systemctl reload apache2
+  * (Optional) vi /etc/apache2/sites-available/default-ssl.conf
+    - SSLCertificateFile : 인증서위치(.crt)
+    - SSLCertificateKeyFile : 개인키위치(.key)
 
 1. docker
   * ~
