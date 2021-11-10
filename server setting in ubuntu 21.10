@@ -14,8 +14,12 @@ server setting in ubuntu 21.10
 
 1. code-server
   * /home/ruro/.config/code-server/config.yaml
-    - bind-addr: 0.0.0.0:8080
+    - bind-addr: 0.0.0.0:443
+    - auth: password
     - password: '????????'
+    - cert: true
+  * Allows code-server to listen on port 443
+    - sudo setcap cap_net_bind_service=+ep /usr/lib/code-server/lib/node
 
 1. smbd
   * /etc/samba/smb.conf
