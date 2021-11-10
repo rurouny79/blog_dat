@@ -29,6 +29,7 @@ server setting in ubuntu 21.10
     - read only = no
     - valid users = %S
     - path = /data/samba
+  * (Optional) sudo smbpasswd -a <username>
 
 1. svn (https)
   * apt install subversion apache2 libapache2-mod-svn
