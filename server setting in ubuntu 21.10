@@ -1,4 +1,16 @@
 server setting in ubuntu 21.10
+1. wol setting
+  * /etc/systemd/system/wol.service
+    - [Unit]
+    - Description=Enable Wake On Lan
+    - [Service]
+    - Type=oneshot
+    - ExecStart=/sbin/ethtool --change enp6s0 wol g
+    - [Install]
+    - WantedBy=basic.target
+  * sudo systemctl daemon-reload
+  * sudo systemctl enable wol.service
+  * install android wol app -> udp / portnumber 9 (gigabyte mainboard)
 
 1. code-server
   * /home/ruro/.config/code-server/config.yaml
