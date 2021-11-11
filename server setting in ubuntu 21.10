@@ -61,3 +61,7 @@ server setting in ubuntu 21.10
 
 1. disk check
   * sudo smartctl --all /dev/sdb
+  
+1. gui (rdp:3389)
+  * sudo apt install xrdp xfce4
+  * sudo apt install firefox
