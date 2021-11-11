@@ -13,6 +13,7 @@ server setting in ubuntu 21.10
   * install android wol app -> udp / portnumber 9 (gigabyte mainboard)
 
 1. code-server
+  * curl -fsSL https://code-server.dev/install.sh | sh
   * /home/ruro/.config/code-server/config.yaml
     - bind-addr: 0.0.0.0:443
     - auth: password
