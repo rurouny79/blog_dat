@@ -1,4 +1,17 @@
 server setting in ubuntu 21.10
+
+cpu : 5950x
+mainboard : Gigabyte B550M AORUS ELITE
+
+1. bios option
+- Load optimized default
+- PBO : Auto -> Enable
+- XMP : Auto -> Profile1
+
+2. install mining service
+
+----------
+
 1. wol setting
   * /etc/systemd/system/wol.service
     - [Unit]
