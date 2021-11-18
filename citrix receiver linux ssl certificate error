@@ -1,0 +1,3 @@
+sudo ln -s /usr/share/ca-certificates/mozilla/* /opt/Citrix/ICAClient/keystore/cacerts
+
+from : https://askubuntu.com/questions/302188/certificate-error-when-using-citrix-receiver
