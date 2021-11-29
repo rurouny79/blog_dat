@@ -63,13 +63,15 @@ mainboard : ASUS TUF GAMING B550-PRO
   $ (host) docker run -it -v /data/smb:/data/smb -p 139:139 --name smb ubuntu
   $ apt install samba
   * /etc/samba/smb.conf
-    - [homes]
-    - comment = Home Directories
-    - browseable = no
-    - read only = no
-    - valid users = %S
-    - path = /data/smb
-  * (Optional) sudo smbpasswd -a <username>
+    [homes]
+    comment = Home Directories
+    browseable = no
+    read only = no
+    valid users = %S
+    path = /data/smb
+  $ (Optional) sudo smbpasswd -a <username>
+  $ sudo service smbd restart
+  $ (Optional) sudo ufw allow samba
 
 1. svn (https)
   * apt install subversion apache2 libapache2-mod-svn
