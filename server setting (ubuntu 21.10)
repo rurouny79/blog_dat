@@ -39,7 +39,7 @@ mainboard : ASUS TUF GAMING B550-PRO
   * sudo systemctl daemon-reload
   * sudo systemctl enable mystartup.service
 
-1. wol setting
+1. (Optional) wol setting
   * /etc/systemd/system/wol.service
     - [Unit]
     - Description=Enable Wake On Lan
@@ -52,15 +52,15 @@ mainboard : ASUS TUF GAMING B550-PRO
   * sudo systemctl enable wol.service
   * install android wol app -> udp / portnumber 9 (gigabyte mainboard)
 
-1. code-server
-  * curl -fsSL https://code-server.dev/install.sh | sh
-  * /home/ruro/.config/code-server/config.yaml
-    - bind-addr: 0.0.0.0:443
-    - auth: password
-    - password: '????????'
-    - cert: true
-  * Allows code-server to listen on port 443
-    - sudo setcap cap_net_bind_service=+ep /usr/lib/code-server/lib/node
+1. disk check
+  * sudo smartctl --all /dev/sdb
+  
+1. docker container moving
+  $ docker commit container_name > image_name
+  $ docker save image_name > image_name.tar
+  $ cat image_name.tar | docker load
+
+===== belows are for DOCKER =====
 
 1. smbd
   * /etc/samba/smb.conf
@@ -95,15 +95,17 @@ mainboard : ASUS TUF GAMING B550-PRO
     - SSLCertificateFile : 인증서위치(.crt)
     - SSLCertificateKeyFile : 개인키위치(.key)
   * (Optional-not using apache2) svn list svn+ssh://ruro@192.168.0.2/data/svn/main
-
-1. disk check
-  * sudo smartctl --all /dev/sdb
   
+1. code-server
+  * curl -fsSL https://code-server.dev/install.sh | sh
+  * /home/ruro/.config/code-server/config.yaml
+    - bind-addr: 0.0.0.0:443
+    - auth: password
+    - password: '????????'
+    - cert: true
+  * Allows code-server to listen on port 443
+    - sudo setcap cap_net_bind_service=+ep /usr/lib/code-server/lib/node
+
 1. gui (rdp:3389)
   * sudo apt install xrdp xfce4
   * sudo apt install firefox
-  
-1. docker container moving
-  $ docker commit container_name > image_name
-  $ docker save image_name > image_name.tar
-  $ cat image_name.tar | docker load
