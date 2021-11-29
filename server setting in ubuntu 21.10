@@ -12,6 +12,9 @@ mainboard : Gigabyte B550M AORUS ELITE
 
 ----------
 
+1. install image server
+  * ?????
+
 1. wol setting
   * /etc/systemd/system/wol.service
     - [Unit]
@@ -78,3 +81,9 @@ mainboard : Gigabyte B550M AORUS ELITE
 1. gui (rdp:3389)
   * sudo apt install xrdp xfce4
   * sudo apt install firefox
+  
+1. docker container moving
+  $ docker commit container_name > image_name
+  $ docker save image_name > image_name.tar
+  $ cat image_name.tar | docker load
+
