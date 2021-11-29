@@ -69,9 +69,9 @@ mainboard : ASUS TUF GAMING B550-PRO
     read only = no
     valid users = %S
     path = /data/smb
-  $ (Optional) sudo smbpasswd -a <username>
   $ sudo service smbd restart
   $ (Optional) sudo ufw allow samba
+  $ (Optional) sudo smbpasswd -a <username>
 
 1. svn (https)
   * apt install subversion apache2 libapache2-mod-svn
