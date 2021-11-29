@@ -60,7 +60,7 @@ mainboard : ASUS TUF GAMING B550-PRO
 ===== belows are for DOCKER (Ubuntu 20.04.3 LTS) =====
 
 1. smbd
-  $ (host) docker run -it -v /data/smb:/data/smb -p 139:139 --name smb ubuntu
+  $ (host) docker run -it -v /data/smb:/data/smb -p 139:139 -p 445:445 --name smb ubuntu
   $ apt install samba vim
   * /etc/samba/smb.conf
     [homes]
