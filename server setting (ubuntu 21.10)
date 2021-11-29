@@ -57,21 +57,19 @@ mainboard : ASUS TUF GAMING B550-PRO
   * sudo systemctl enable wol.service
   * install android wol app -> udp / portnumber 9 (gigabyte mainboard)
 
-===== belows are for DOCKER =====
+===== belows are for DOCKER (Ubuntu 20.04.3 LTS) =====
 
 1. smbd
   $ (host) docker run -it -v /data/smb:/data/smb -p 139:139 --name smb ubuntu
-  $ apt install samba
+  $ apt install samba vim
   * /etc/samba/smb.conf
     [homes]
-    comment = Home Directories
     browseable = no
     read only = no
-    valid users = %S
     path = /data/smb
-  $ sudo service smbd restart
-  $ (Optional) sudo ufw allow samba
-  $ (Optional) sudo smbpasswd -a <username>
+  $ adduser <username>
+  $ smbpasswd -a <username>
+  $ service smbd restart
 
 1. svn (https)
   * apt install subversion apache2 libapache2-mod-svn
