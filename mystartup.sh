@@ -17,7 +17,7 @@ do
 done
 
 # start mining
-/root/raptoreum/cpuminer-gr-1.2.4.1-x86_64_linux/cpuminer.sh &
+/myopt/raptoreum/cpuminer-gr-1.2.4.1-x86_64_linux/cpuminer.sh &
 sleep 10
 PID=$(pidof "cpuminer-zen3")
 while true
