@@ -63,6 +63,8 @@ mainboard : ASUS TUF GAMING B550-PRO
 ===== belows are for DOCKER =====
 
 1. smbd
+  $ (host) docker run -it -v /data/smb:/data/smb -p 139:139 --name smb ubuntu
+  $ apt install samba
   * /etc/samba/smb.conf
     - [homes]
     - comment = Home Directories
