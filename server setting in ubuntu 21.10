@@ -72,17 +72,17 @@ mainboard : ASUS TUF GAMING B550-PRO
   $ service smbd restart
 
 1. svn (https)
-  * apt install subversion apache2 libapache2-mod-svn
+  $ (host) docker run -it -v /data/svn:/data/svn -p 443:443 --name svn ubuntu
+  * apt install subversion apache2 libapache2-mod-svn vim
   * vi /etc/apache2/mods-available/dav_svn.conf
     - <Location /svn>
     - DAV svn
     - SVNParentPath /data/svn
     - AuthType Basic
-    - AuthName "Blackbox Subversion repositories"
+    - AuthName "Subversion Repository"
     - AuthUserFile /data/svn/dav_svn.passwd
     - Require valid-user
     - </Location>
-  * mkdir /data/svn
   * htpasswd -c /data/svn/dav_svn.passwd ruro
   * svnadmin create /data/svn/main
   * svnadmin load /data/svn/main < svn.dump
