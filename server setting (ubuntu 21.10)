@@ -26,6 +26,11 @@ mainboard : ASUS TUF GAMING B550-PRO
   $ sudo apt-get update
   $ sudo apt-get install docker-ce docker-ce-cli containerd.io
   $ sudo docker run hello-world
+  
+1. docker container moving
+  $ docker commit container_name > image_name
+  $ docker save image_name > image_name.tar
+  $ cat image_name.tar | docker load
 
 1. install mystartup(include mining) service
   * /etc/systemd/system/mystartup.service
@@ -51,14 +56,6 @@ mainboard : ASUS TUF GAMING B550-PRO
   * sudo systemctl daemon-reload
   * sudo systemctl enable wol.service
   * install android wol app -> udp / portnumber 9 (gigabyte mainboard)
-
-1. disk check
-  * sudo smartctl --all /dev/sdb
-  
-1. docker container moving
-  $ docker commit container_name > image_name
-  $ docker save image_name > image_name.tar
-  $ cat image_name.tar | docker load
 
 ===== belows are for DOCKER =====
 
@@ -111,3 +108,8 @@ mainboard : ASUS TUF GAMING B550-PRO
 1. gui (rdp:3389)
   * sudo apt install xrdp xfce4
   * sudo apt install firefox
+  
+===== belows are Sever Management Usage =====
+
+1. disk check
+  * sudo smartctl --all /dev/sdb
