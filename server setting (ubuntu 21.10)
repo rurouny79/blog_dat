@@ -68,7 +68,7 @@ mainboard : ASUS TUF GAMING B550-PRO
     - browseable = no
     - read only = no
     - valid users = %S
-    - path = /data/samba
+    - path = /data/smb
   * (Optional) sudo smbpasswd -a <username>
 
 1. svn (https)
