@@ -4,9 +4,9 @@ cpu : 5950x
 mainboard : ASUS TUF GAMING B550-PRO 
 
 1. bios option
-- Load optimized default
-- PBO : Auto -> Enable
-- XMP : Auto -> Profile1
+  - Load optimized default
+  - PBO : Auto -> Enable
+  - XMP : Auto -> Profile1
 
 1. install openssh-server
   * select [*] in ubuntu server install process
