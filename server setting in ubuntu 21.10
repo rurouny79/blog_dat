@@ -38,9 +38,6 @@ mainboard : ASUS TUF GAMING B550-PRO
     WantedBy=basic.target
   * sudo systemctl daemon-reload
   * sudo systemctl enable mystartup.service
-  
-1. install image server
-  * ?????
 
 1. wol setting
   * /etc/systemd/system/wol.service
