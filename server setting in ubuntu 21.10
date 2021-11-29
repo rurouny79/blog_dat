@@ -1,16 +1,27 @@
 server setting in ubuntu 21.10
 
 cpu : 5950x
-mainboard : Gigabyte B550M AORUS ELITE
+mainboard : ASUS TUF GAMING B550-PRO 
 
 1. bios option
 - Load optimized default
 - PBO : Auto -> Enable
 - XMP : Auto -> Profile1
 
-2. install mining service
+1. install docker
+  $ sudo apt-get remove docker docker-engine docker.io containerd runc
+  $ sudo apt-get update
+  $ sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+  $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+  $ sudo apt-get update
+  $ sudo apt-get install docker-ce docker-ce-cli containerd.io
+  $ sudo docker run hello-world
 
-----------
+1. install mining service
 
 1. install image server
   * ?????
@@ -71,9 +82,6 @@ mainboard : Gigabyte B550M AORUS ELITE
     - SSLCertificateFile : 인증서위치(.crt)
     - SSLCertificateKeyFile : 개인키위치(.key)
   * (Optional-not using apache2) svn list svn+ssh://ruro@192.168.0.2/data/svn/main
-
-1. docker
-  * ~
 
 1. disk check
   * sudo smartctl --all /dev/sdb
