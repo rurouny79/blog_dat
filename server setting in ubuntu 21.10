@@ -33,7 +33,7 @@ mainboard : ASUS TUF GAMING B550-PRO
     - Description=My Start Up
     - [Service]
     - Type=oneshot
-    - ExecStart=/root/mystartup.sh
+    - ExecStart=/myopt/mystartup.sh
     - [Install]
     - WantedBy=basic.target
   * sudo systemctl daemon-reload
