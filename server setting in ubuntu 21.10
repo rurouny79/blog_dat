@@ -8,6 +8,9 @@ mainboard : ASUS TUF GAMING B550-PRO
 - PBO : Auto -> Enable
 - XMP : Auto -> Profile1
 
+1. install openssh-server
+  * select [*] in ubuntu server install process
+
 1. install docker
   $ sudo apt-get remove docker docker-engine docker.io containerd runc
   $ sudo apt-get update
