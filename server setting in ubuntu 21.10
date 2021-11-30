@@ -30,6 +30,8 @@ mainboard : ASUS TUF GAMING B550-PRO
     $ docker commit container_name > image_name
     $ docker save image_name > image_name.tar
     $ cat image_name.tar | docker load
+  * 도커 빠져나오기
+    - Ctrl+p, Ctrp+q
 
 1. install mystartup(include mining) service
   * /etc/systemd/system/mystartup.service
