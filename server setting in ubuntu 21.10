@@ -10,6 +10,9 @@ mainboard : ASUS TUF GAMING B550-PRO
 
 1. install openssh-server
   * select [*] in ubuntu server install process
+  
+1. time zone setting
+  $ sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
 1. install docker
   $ sudo apt-get remove docker docker-engine docker.io containerd runc
