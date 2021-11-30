@@ -116,4 +116,5 @@ mainboard : ASUS TUF GAMING B550-PRO
 ===== belows are Sever Management Usage =====
 
 1. disk check
-  * sudo smartctl --all /dev/sda
+  $ sudo apt-get install smartmontools
+  $ sudo smartctl --all /dev/sda
