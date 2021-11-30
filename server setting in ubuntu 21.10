@@ -26,7 +26,7 @@ mainboard : ASUS TUF GAMING B550-PRO
   $ sudo apt-get update
   $ sudo apt-get install docker-ce docker-ce-cli containerd.io
   $ sudo docker run hello-world  
-  * docker container moving
+  * 컨테이너 
     $ docker commit container_name > image_name
     $ docker save image_name > image_name.tar
     $ cat image_name.tar | docker load
