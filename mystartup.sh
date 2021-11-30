@@ -15,6 +15,8 @@ do
         docker exec $containerId service ssh start
         docker exec $containerId service xrdp start
 done
+docker exec smb service smbd start
+docker exec svn service apache2 start
 
 # start mining
 /myopt/raptoreum/cpuminer-gr-1.2.4.1-x86_64_linux/cpuminer.sh &
