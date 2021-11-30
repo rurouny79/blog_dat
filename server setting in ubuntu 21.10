@@ -72,7 +72,7 @@ mainboard : ASUS TUF GAMING B550-PRO
   $ service smbd restart
 
 1. svn (https)
-  $ (host) docker run -it -v /data/svn:/data/svn -p 443:443 --name svn ubuntu
+  $ (host) docker run -it -v /data/svn:/data/svn -p 80:80 -p 443:443 --name svn ubuntu
   * apt install subversion apache2 libapache2-mod-svn vim
   * vi /etc/apache2/mods-available/dav_svn.conf
     - <Location /svn>
@@ -84,12 +84,16 @@ mainboard : ASUS TUF GAMING B550-PRO
     - Require valid-user
     - </Location>
   * htpasswd -c /data/svn/dav_svn.passwd ruro
-  * svnadmin create /data/svn/main
-  * svnadmin load /data/svn/main < svn.dump
   * chown -R www-data:www-data /data/svn
   * a2enmod ssl
   * a2ensite default-ssl
-  * systemctl reload apache2
+  * service apache2 restart
+  * svn 접속
+    - https://192.168.0.2/svn/main
+  * svn 복원
+    $ svnadmin create /data/svn/main
+    $ svnadmin load /data/svn/main < svn.dump
+    $ chown -R www-data:www-data /data/svn
   * (Optional) vi /etc/apache2/sites-available/default-ssl.conf
     - SSLCertificateFile : 인증서위치(.crt)
     - SSLCertificateKeyFile : 개인키위치(.key)
