@@ -3,3 +3,8 @@
     reg.exe add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
   - 윈도우11 스타일
     reg.exe delete "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" /f
+
+1. 작업 표시줄 시스템 트레이에 모든 아이콘 표시
+  - 명령 프롬프트 관리자 권한으로 실행
+  - 아래 명령어 입력하여, 체크
+    explorer shell:::{05d7b0f4-2121-4eff-bf6b-ed3f69b894d9}
