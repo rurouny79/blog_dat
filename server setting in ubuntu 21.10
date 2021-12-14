@@ -115,7 +115,7 @@ mainboard : ASUS TUF GAMING B550-PRO
 
 1. gui xrdp-xfce4 (rdp:3389)
   $ (host) sudo docker run -it -p 3389:3389 --name xrdp ubuntu
-  $ apt install xrdp xfce4 xfce4-terminal firefox
+  $ apt install xrdp xfce4 xfce4-terminal firefox fonts-nanum*
     select light-dm
   $ passwd root
   $ echo "xfce4-session" > /root/.xsession
