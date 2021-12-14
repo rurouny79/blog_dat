@@ -1,2 +1,7 @@
 1. install efi grub
   $ grub-install --efi-directory=/mnt/fat32_efi --boot-directory=/mnt/ext4_ubuntu_rootfs
+
+1. run command on different terminal window
+  $ mkfifo /root/pipe1 # make pipeline
+  $ eval $(cat /root/pipe1) # accepting command...
+  $ echo "ls" > /root/pipe1 # send command
