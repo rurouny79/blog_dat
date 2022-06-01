@@ -22,7 +22,7 @@ mainboard : ASUS TUF GAMING B550-PRO
   (https://github.com/liquidctl/liquidctl/blob/main/docs/kraken-x3-z3-guide.md)
   $ sudo apt install liquidctl
   $ sudo liquidctl status
-  $ sudo liquidctl set pump speed 90
+  $ sudo liquidctl set pump speed 100
 
 1. raptoreum mining setting
   
