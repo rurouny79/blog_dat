@@ -1,4 +1,4 @@
-server setting in ubuntu 21.10
+server setting in ubuntu 22.04
 
 cpu : 5950x
 cpu cooler : kraken x73
@@ -13,11 +13,10 @@ mainboard : ASUS TUF GAMING B550-PRO
   * select [*] in ubuntu server install process
   
 1. ryzen zen3 setting
-1) edit /etc/default/grub and add "acpi_enforce_resources=lax"
-GRUB_CMDLINE_LINUX="acpi_enforce_resources=lax"
-2) I have also to create the config file:/etc/modules-load.d/nct6775.conf with the content
-nct6775
-This is to tell systemd to do the same as sudo modprobe -v nct6775
+  * /etc/default/grub
+    - GRUB_CMDLINE_LINUX="acpi_enforce_resources=lax"
+  * /etc/modules-load.d/modules.conf
+    - nct6775
 
 1. raptoreum mining setting
   
