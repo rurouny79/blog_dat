@@ -1,7 +1,8 @@
 server setting in ubuntu 21.10
 
 cpu : 5950x
-mainboard : ASUS TUF GAMING B550-PRO 
+cpu cooler : kraken x73
+mainboard : ASUS TUF GAMING B550-PRO
 
 1. bios option
   - Load optimized default
@@ -10,6 +11,14 @@ mainboard : ASUS TUF GAMING B550-PRO
 
 1. install openssh-server
   * select [*] in ubuntu server install process
+  
+1. ryzen zen3 setting
+1) edit /etc/default/grub and add "acpi_enforce_resources=lax"
+2) I have also to create the config file:/etc/modules-load.d/nct6775.conf with the content
+nct6775
+This is to tell systemd to do the same as sudo modprobe -v nct6775
+
+1. raptoreum mining setting
   
 1. time zone setting
   $ sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
