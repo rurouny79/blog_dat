@@ -18,6 +18,11 @@ mainboard : ASUS TUF GAMING B550-PRO
   * /etc/modules-load.d/modules.conf
     - nct6775
 
+1. kraken x73 water cooler controller setting
+  $ sudo apt install liquidctl
+  $ sudo liquidctl status
+  $ sudo liquidctl set pump speed 90
+
 1. raptoreum mining setting
   
 1. time zone setting
