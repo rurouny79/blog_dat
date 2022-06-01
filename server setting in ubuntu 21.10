@@ -25,7 +25,10 @@ mainboard : ASUS TUF GAMING B550-PRO
   $ sudo liquidctl set pump speed 100
 
 1. raptoreum mining setting
+  $ sudo apt-get install build-essential automake libssl-dev libcurl4-openssl-dev libjansson-dev libgmp-dev zlib1g-dev libnuma-dev git
+  $ cd /myopt/raptoreum
   $ wget https://github.com/WyvernTKC/cpuminer-gr-avx2/archive/refs/tags/1.2.4.1.tar.gz
+  $ ./build-allarch.sh
   
 1. time zone setting
   $ sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
