@@ -127,12 +127,12 @@ mainboard : ASUS TUF GAMING B550-PRO
   
 1. code-server
   * curl -fsSL https://code-server.dev/install.sh | sh
-  * /home/ruro/.config/code-server/config.yaml
+  * /root/.config/code-server/config.yaml
     - bind-addr: 0.0.0.0:443
     - auth: password
     - password: '????????'
     - cert: true
-  * Allows code-server to listen on port 443
+  * (Optional) Allows code-server to listen on port 443
     - sudo setcap cap_net_bind_service=+ep /usr/lib/code-server/lib/node
 
 1. gui xrdp-xfce4 (rdp:3389)
