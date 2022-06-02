@@ -122,6 +122,9 @@ mainboard : ASUS TUF GAMING B550-PRO
     - SSLCertificateKeyFile : 개인키위치(.key)
   * (Optional-not using apache2) svn list svn+ssh://ruro@192.168.0.2/data/svn/main
   
+1. cointest
+  $ (host) docker run -it -v /data/tmp:/data/tmp -p 1001:22 -p 1002:3389 -p 1003:443 --name cointest img_cointest
+  
 1. code-server
   * curl -fsSL https://code-server.dev/install.sh | sh
   * /home/ruro/.config/code-server/config.yaml
