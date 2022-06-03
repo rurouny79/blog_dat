@@ -17,7 +17,7 @@ do
         docker restart $containerId
         docker exec $containerId service ssh start
         docker exec $containerId service xrdp start
-        docker exec $containerId code-server
+        docker exec -d $containerId code-server
 done
 docker exec smb service smbd start
 docker exec svn service apache2 start
