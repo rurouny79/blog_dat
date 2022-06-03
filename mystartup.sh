@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# hw setting
+liquidctl set pump speed 100
+
 # start containers
 while true
 do
@@ -19,13 +22,13 @@ docker exec smb service smbd start
 docker exec svn service apache2 start
 
 # start mining
-/myopt/raptoreum/cpuminer-gr-1.2.4.1-x86_64_linux/cpuminer.sh &
+/myopt/raptoreum/cpuminer-gr-avx2-1.2.4.1/bin/cpuminer.sh &
 sleep 10
 PID=$(pidof "cpuminer-zen3")
 while true
 do
         sleep 1
-        busycnt=$(ps -eo %cpu,args | awk '$1 >= 10 {print}' | grep -v cpuminer-zen3 | wc -l)
+        busycnt=$(ps -eo %cpu,args | awk '$1 >= 3 {print}' | grep -v cpuminer-zen3 | wc -l)
         if test $busycnt -eq 0
         then
                 kill -CONT $PID
