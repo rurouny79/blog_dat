@@ -135,6 +135,16 @@ mainboard : ASUS TUF GAMING B550-PRO
   * (Optional) Allows code-server to listen on port 443
     - sudo setcap cap_net_bind_service=+ep /usr/lib/code-server/lib/node
 
+1. crontab setting
+  ※ DOW - 0 ~ 6 ( 0 : SUN, 1 : MON ... 6 : SAT)
+  * Regist (Every Friday 00:00)
+    $ crontab -e
+    00 00 * * 5 /root/coin_test/vscode_ws/util/dataman_week_trade.sh
+  * Check status
+    $ crontab -l
+  * Remove
+    & crontab -r
+
 1. gui xrdp-xfce4 (rdp:3389)
   $ (host) sudo docker run -it -p 3389:3389 --name xrdp ubuntu
   $ apt install xrdp xfce4 xfce4-terminal firefox fonts-nanum*
