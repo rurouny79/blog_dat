@@ -1,0 +1,9 @@
+Install ubuntu on thinkpad
+
+1. Optimize trackpoint
+
+1. Change Keymap
+  1) Capslock -> Ctrl
+  2) ESC <-> `
+
+1. Resolve dmesg fail
