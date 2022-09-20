@@ -1,6 +1,15 @@
 Install ubuntu on thinkpad
+- Ubuntu 22.04
+- Wayland (Not XWindowServer)
 
-1. Optimize trackpoint
+1. Optimize trackpoint (Wayland)
+   (https://rabexc.org/posts/carbon-x1-trackpad)
+   mkdir -p /etc/libinput
+   cat > /etc/libinput/local-overrides.quirks <<END
+   [Trackpoint Override]
+   MatchUdevType=pointingstick
+   AttrTrackpointMultiplier=0.55
+   END
 
 1. Change Keymap
   1) Capslock -> Ctrl
