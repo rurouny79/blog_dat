@@ -143,7 +143,10 @@ mainboard : ASUS TUF GAMING B550-PRO
   * Check status
     $ crontab -l
   * Remove
-    & crontab -r
+    $ crontab -r
+  * Service Start
+    $ service cron reload
+    $ service cron restart
 
 1. gui xrdp-xfce4 (rdp:3389)
   $ (host) sudo docker run -it -p 3389:3389 --name xrdp ubuntu
