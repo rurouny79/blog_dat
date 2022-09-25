@@ -17,6 +17,7 @@ do
         docker restart $containerId
         docker exec $containerId service ssh start
         docker exec $containerId service xrdp start
+        docker exec $containerId service cron start
         docker exec -d $containerId code-server
 done
 docker exec smb service smbd start
