@@ -18,6 +18,21 @@ Install ubuntu on thinkpad
   1) ESC <-> `
   $ xmodmap -e "keycode 9 = grave"
   $ xmodmap -e "keycode 49 = Escape"
+  
+1. install mystartup service
+  * /etc/systemd/system/mystartup.service
+    [Unit]
+    Description=My Start Up
+    [Service]
+    Type=oneshot
+    ExecStart=/myopt/mystartup.sh
+    [Install]
+    WantedBy=basic.target
+  * sudo systemctl daemon-reload
+  * sudo systemctl enable mystartup.service
+  
+1. CapsLock LED Off
+?
 
 1. Resolve dmesg fail
 
