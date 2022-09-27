@@ -16,6 +16,8 @@ Install ubuntu on thinkpad
   $ xmodmap -e "keysym Caps_Lock = Control_L"
   $ xmodmap -e "add Control = Control_L"
   1) ESC <-> `
+  $ xmodmap -e "keycode 9 = grave"
+  $ xmodmap -e "keycode 49 = Escape"
 
 1. Resolve dmesg fail
 
