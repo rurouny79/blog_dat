@@ -8,7 +8,7 @@ Install ubuntu on thinkpad
 1. Optimize trackpoint
   $ xinput --list-props "TPPS/2 Elan TrackPoint" | grep Accel
   $ xinput --set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Speed" 0.5
-  $ xinput --set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Profile Enabled" 0 0
+  $ xinput --set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Profile Enabled" 0 1
 
 1. Change Keymap
   1) Capslock -> Ctrl
