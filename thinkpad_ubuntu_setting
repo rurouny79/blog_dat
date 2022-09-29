@@ -5,31 +5,25 @@ Install ubuntu on thinkpad
 1. Change Wayland -> Xorg
   - Select "Xorg" in login screen
 
-1. Optimize trackpoint
-  $ xinput --list-props "TPPS/2 Elan TrackPoint" | grep Accel
-  $ xinput --set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Speed" 0.5
-  $ xinput --set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Profile Enabled" 0 1
+1. Add New Startup Application
+/myopt/mystartup.sh
+'''
+#!/bin/sh
+sleep 5
 
-1. Change Keymap
-  1) Capslock -> Ctrl
-  $ xmodmap -e "remove Lock = Caps_Lock"
-  $ xmodmap -e "keysym Caps_Lock = Control_L"
-  $ xmodmap -e "add Control = Control_L"
-  1) ESC <-> `
-  $ xmodmap -e "keycode 9 = grave"
-  $ xmodmap -e "keycode 49 = Escape"
-  
-1. install mystartup service
-  * /etc/systemd/system/mystartup.service
-    [Unit]
-    Description=My Start Up
-    [Service]
-    Type=oneshot
-    ExecStart=/myopt/mystartup.sh
-    [Install]
-    WantedBy=basic.target
-  * sudo systemctl daemon-reload
-  * sudo systemctl enable mystartup.service
+#Optimize trackpoint
+/usr/bin/xinput --set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Speed" 0.5
+/usr/bin/xinput --set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Profile Enabled" 0 1
+
+#Capslock -> Ctrl
+/usr/bin/xmodmap -e "remove Lock = Caps_Lock"
+/usr/bin/xmodmap -e "keysym Caps_Lock = Control_L"
+/usr/bin/xmodmap -e "add Control = Control_L"
+
+#ESC <-> `
+/usr/bin/xmodmap -e "keycode 9 = grave"
+/usr/bin/xmodmap -e "keycode 49 = Escape"
+'''
   
 1. CapsLock LED Off
 ?
@@ -37,14 +31,3 @@ Install ubuntu on thinkpad
 1. Resolve dmesg fail
 
 1. Finger print detecting
-
-// for wayland - NOT USED
-1. Optimize trackpoint (Wayland)
-   (https://rabexc.org/posts/carbon-x1-trackpad)
-   (https://wayland.freedesktop.org/libinput/doc/latest/trackpoint-configuration.html)
-   mkdir -p /etc/libinput
-   cat > /etc/libinput/local-overrides.quirks <<END
-   [Trackpoint Override]
-   MatchUdevType=pointingstick
-   AttrTrackpointMultiplier=0.4
-   END
