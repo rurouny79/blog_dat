@@ -5,7 +5,13 @@ Install ubuntu on thinkpad
 1. Change Wayland -> Xorg
   - Select "Xorg" in login screen
   
-1. Finger print detecting
+1. Finger print login
+  - go to "System" - "Finger Print Login"
+
+1. Finger print sudo
+  $ sudo pam-auth-update
+  - select "Fingerprint authentication"
+    
 
 1. Dock replace to bottom
 
