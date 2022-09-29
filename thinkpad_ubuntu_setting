@@ -4,6 +4,10 @@ Install ubuntu on thinkpad
 
 1. Change Wayland -> Xorg
   - Select "Xorg" in login screen
+  
+1. Finger print detecting
+
+1. Dock replace to bottom
 
 1. Add New Startup Application
 /myopt/mystartup.sh
@@ -29,5 +33,3 @@ sleep 5
 ?
 
 1. Resolve dmesg fail
-
-1. Finger print detecting
