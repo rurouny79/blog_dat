@@ -3,6 +3,19 @@
 # hw setting
 liquidctl set pump speed 100
 
+# start netplan
+while true
+do
+        ip=$(ifconfig wlp5s0 | grep 192.168)
+        if [ $? = 0 ]
+        then
+                break
+        else
+                netplan apply
+                sleep 60
+        fi
+done
+
 # start containers
 while true
 do
