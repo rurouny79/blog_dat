@@ -17,6 +17,24 @@ mainboard : ASUS TUF GAMING B550-PRO
     - GRUB_CMDLINE_LINUX="acpi_enforce_resources=lax"
   * /etc/modules-load.d/modules.conf
     - nct6775
+    
+1. wifi-pcie setting
+  * /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg
+  network:
+  ethernets:
+    enp6s0:
+      dhcp4: true
+  version: 2
+  wifis:
+    wlp5s0:
+      optional : true
+      access-points:
+        "crinysus_5g":
+          password: "43704370"
+      dhcp4: true
+  $ sudo cloud-init clean
+  $ sudo cloud-init init
+  $ sudo netplan apply
 
 1. kraken x73 water cooler controller setting
   (https://github.com/liquidctl/liquidctl/blob/main/docs/kraken-x3-z3-guide.md)
