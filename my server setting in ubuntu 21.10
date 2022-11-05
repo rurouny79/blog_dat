@@ -23,11 +23,11 @@ mainboard : ASUS TUF GAMING B550-PRO
   * /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg
   network:
   ethernets:
-    enp6s0:
+    enp9s0:
       dhcp4: true
   version: 2
   wifis:
-    wlp5s0:
+    wlp6s0:
       optional : true
       access-points:
         "crinysus_5g":
