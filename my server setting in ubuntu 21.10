@@ -102,7 +102,12 @@ cpu cooler : nh-d16
       WantedBy=basic.target
     $ sudo systemctl daemon-reload
     $ sudo systemctl enable wol.service
-
+    
+1. rtc wakeup setting
+  $ sh -c "echo 0 > /sys/class/rtc/rtc0/wakealarm"
+  $ sh -c "echo `date '+%s' -d '+ 1 minutes'` > /sys/class/rtc/rtc0/wakealarm"
+  $ systemctl suspend
+  
 ===== belows are for DOCKER (Ubuntu 20.04.3 LTS) =====
 
 1. smbd
