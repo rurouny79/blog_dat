@@ -1,8 +1,8 @@
 server setting in ubuntu 22.04
 
 cpu : 5950x
-cpu cooler : kraken x73
 mainboard : ASUS TUF GAMING B550-PRO
+cpu cooler : nh-d16
 
 1. bios option
   - Load optimized default
