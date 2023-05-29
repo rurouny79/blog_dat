@@ -1,9 +1,13 @@
 #!/bin/sh
 
 # hw setting
+## wol setting
+ethtool --change enp6s0 wol g
+
+## water pump
 liquidctl set pump speed 100
 
-# start netplan
+## start netplan (wifi connect)
 while true
 do
         ip=$(ifconfig wlp6s0 | grep 192.168)
