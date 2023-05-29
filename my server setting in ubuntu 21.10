@@ -86,7 +86,7 @@ mainboard : ASUS TUF GAMING B550-PRO
   * sudo systemctl daemon-reload
   * sudo systemctl enable mystartup.service
 
-1. (Optional) wol setting
+1. wol setting
   * check wol enabled : sudo ethtool enp6s0 | grep -i wake-on
   * manual enable wol : sudo ethtool --change enp6s0 wol g
   * wake up by linux command : wakeonlan -p 8 7C-10-C9-41-A6-67
