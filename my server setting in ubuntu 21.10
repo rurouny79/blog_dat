@@ -87,17 +87,21 @@ mainboard : ASUS TUF GAMING B550-PRO
   * sudo systemctl enable mystartup.service
 
 1. (Optional) wol setting
-  * /etc/systemd/system/wol.service
-    - [Unit]
-    - Description=Enable Wake On Lan
-    - [Service]
-    - Type=oneshot
-    - ExecStart=/sbin/ethtool --change enp6s0 wol g
-    - [Install]
-    - WantedBy=basic.target
-  * sudo systemctl daemon-reload
-  * sudo systemctl enable wol.service
-  * install android wol app -> udp / portnumber 9 (gigabyte mainboard)
+  * check wol enabled : sudo ethtool enp6s0 | grep -i wake-on
+  * manual enable wol : sudo ethtool --change enp6s0 wol g
+  * wake up by linux command : wakeonlan -p 8 7C-10-C9-41-A6-67
+  * install android wol app : udp / portnumber 9 (gigabyte mainboard)
+  * auto enable wol or just add to mystartup.sh
+    @ /etc/systemd/system/wol.service
+      [Unit]
+      Description=Enable Wake On Lan
+      [Service]
+      Type=oneshot
+      ExecStart=/sbin/ethtool --change enp6s0 wol g
+      [Install]
+      WantedBy=basic.target
+    $ sudo systemctl daemon-reload
+    $ sudo systemctl enable wol.service
 
 ===== belows are for DOCKER (Ubuntu 20.04.3 LTS) =====
 
