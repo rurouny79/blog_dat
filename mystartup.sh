@@ -40,6 +40,68 @@ done
 docker exec smb service smbd start
 docker exec svn service apache2 start
 
+# start try sleep
+timecnt=0
+while true
+do
+        sleep 1
+        timecnt=$((timecnt+1))
+
+        # check time reset
+        codeserverpscnt=$(ps aux | grep code-server | wc | awk '{print $1;}')
+        if [ $codeserverpscnt -gt 4 ]
+        then
+                timecnt=0
+        fi
+
+        ptscnt=$(who | grep pts | wc | awk '{print $1;}')
+        if [ $ptscnt -gt 0 ]
+        then
+                timecnt=0
+        fi
+
+        if [ -f /tmp/extendsleep ]
+        then
+                timecnt=0
+                rm /tmp/extendsleep
+        fi
+
+        hour=$(date +%H)
+        dow=$(date +%u) # 1 is Monday
+        if [ "$hour" -ge 23 -a "$dow" -eq 4 ]
+        then
+                timecnt=0
+        elif [ "$hour" -le 6 -a "$dow" -eq 5 ]
+        then
+                timecnt=0
+        fi
+
+        ldavg=$(cat /proc/loadavg | awk '{print $1;}')
+        if [ "$ldavg" != "0.00" ]
+        then
+                timecnt=0
+        fi
+
+        # desicion
+        if [ "$timecnt" -gt 600 ]
+        then
+                timecnt=0
+
+                time_t=$(date -dthursday +%s)
+                time_t=$((time_t+86100))
+
+                time_n=$(date +%s)
+
+                if [ $time_n -gt $time_t ]
+                then
+                        time_t=$((time_t+604800))
+                fi
+
+                echo 0 > /sys/class/rtc/rtc0/wakealarm
+                echo $time_t > /sys/class/rtc/rtc0/wakealarm
+        fi
+done
+
 # start mining
 /myopt/raptoreum/cpuminer-gr-avx2-1.2.4.1/bin/cpuminer.sh &
 sleep 10
