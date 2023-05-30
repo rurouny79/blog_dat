@@ -40,7 +40,7 @@ done
 docker exec smb service smbd start
 docker exec svn service apache2 start
 
-# start try sleep
+# start try sleep (final opt action 1)
 timecnt=0
 while true
 do
@@ -102,7 +102,7 @@ do
         fi
 done
 
-# start mining
+# start mining (final opt action 2)
 /myopt/raptoreum/cpuminer-gr-avx2-1.2.4.1/bin/cpuminer.sh &
 sleep 10
 PID=$(pidof "cpuminer-zen3")
