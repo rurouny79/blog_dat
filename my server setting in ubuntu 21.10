@@ -108,6 +108,19 @@ cpu cooler : nh-d16
   $ sh -c "echo `date '+%s' -d '+ 1 minutes'` > /sys/class/rtc/rtc0/wakealarm"
   $ systemctl suspend
   
+1. static ip setting (essential for wol)
+  @ /etc/netplan/01-network-manager-all.yaml
+  network:
+      ethernets:
+          enp0s3:
+              dhcp4: false
+              addresses: [192.168.1.202/24]
+              gateway4: 192.168.1.1
+              nameservers:
+                addresses: [8.8.8.8,8.8.4.4,192.168.1.1]
+      version: 2
+  $ netplan --debug apply
+
 ===== belows are for DOCKER (Ubuntu 20.04.3 LTS) =====
 
 1. smbd
