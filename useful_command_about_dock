@@ -1,7 +1,7 @@
 Make default docker image for dev test
 
 x86 도커 환경 생성
-docker run -it -v /data/tmp:/data/tmp --name devbed ubuntu
+docker run -it -v /data/tmp:/data/tmp --name ubuntu_devbed ubuntu
 cat /etc/os-release 
 PRETTY_NAME="Ubuntu 22.04 LTS"
 NAME="Ubuntu"
@@ -60,7 +60,7 @@ code-server --cert=/root/certs/MyCertificate.crt --cert-key=/root/certs/MyKey.ke
 chmod +x /usr/bin/code-server_cert.sh
 
 도커 이미지화
-docker commit devbed devbed
+docker commit ubuntu_devbed devbed
 
 도커 컨테이너 생성
 docker run -it -v /data/tmp:/data/tmp -p 3001:22 -p 3002:3389 -p 3003:443 --name test1 devbed
