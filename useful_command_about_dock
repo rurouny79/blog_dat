@@ -63,4 +63,4 @@ chmod +x /usr/bin/code-server_cert.sh
 docker commit ubuntu_devbed devbed
 
 도커 컨테이너 생성
-docker run -it -v /data/tmp:/data/tmp -p 3001:22 -p 3002:3389 -p 3003:443 --name test1 devbed
+docker run -it -v /data/tmp:/data/tmp -p 2001:22 -p 2002:3389 -p 2003:443 --name test1 devbed
