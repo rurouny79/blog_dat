@@ -33,7 +33,7 @@ PermitRootLogin yes
 root 계정 비밀번호 설정
 passwd root
 123
- 
+
 xrdp, xfce4 설치
 apt install -y xrdp xfce4 xfce4-terminal firefox fonts-nanum*
 echo "xfce4-session" > /root/.xsession
@@ -47,8 +47,17 @@ bind-addr: 0.0.0.0:443
 auth: password
 password: 123
 cert: true
-  * (Optional) Allows code-server to listen on port 443
-    - sudo setcap cap_net_bind_service=+ep /usr/lib/code-server/lib/node
+
+사설 ssl 인증서 설치
+mkdir certs
+cd certs
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ./MyKey.key -out MyCertificate.crt
+
+code-server 실행 스크립트
+vi /usr/bin/code-server_cert.sh
+#!/bin/sh
+code-server --cert=/root/certs/MyCertificate.crt --cert-key=/root/certs/MyKey.key
+chmod +x /usr/bin/code-server_cert.sh
 
 도커 이미지화
 docker commit devbed devbed
