@@ -64,3 +64,9 @@ docker commit ubuntu_devbed devbed
 
 도커 컨테이너 생성
 docker run -it -v /data/tmp:/data/tmp -p 2001:22 -p 2002:3389 -p 2003:443 --name test1 devbed
+
+컨테이너 실행
+docker restart $containerId
+docker exec $containerId service ssh start
+docker exec $containerId service xrdp start
+docker exec -d $containerId code-server_cert.sh
