@@ -36,6 +36,7 @@ do
         docker exec $containerId service xrdp start
         docker exec $containerId service cron start
         docker exec -d $containerId code-server
+        docker exec -d $containerId code-server_cert
 done
 docker exec smb service smbd start
 docker exec svn service apache2 start
