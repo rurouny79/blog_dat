@@ -20,10 +20,10 @@ apt 업데이트
 apt update
 
 vim 설치
-apt install vim curl
+apt install -y vim curl
  
 ssh 설치
-apt install openssh-server
+apt install -y openssh-server
  
 ssh root 로그인 허용
 vi /etc/ssh/sshd_config
