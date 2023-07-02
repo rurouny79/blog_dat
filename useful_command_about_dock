@@ -41,7 +41,7 @@ service xrdp restart
 
 code-server 설치
 curl -fsSL https://code-server.dev/install.sh | sh
-mkdir /root/.config/code-server
+mkdir -p /root/.config/code-server
 vi /root/.config/code-server/config.yaml
 bind-addr: 0.0.0.0:443
 auth: password
