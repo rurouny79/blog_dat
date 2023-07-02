@@ -3,10 +3,10 @@ Make default docker image for dev test
 x86 도커 환경 생성
 docker run -it -v /data/tmp:/data/tmp --name ubuntu_devbed ubuntu
 cat /etc/os-release 
-PRETTY_NAME="Ubuntu 22.04 LTS"
+PRETTY_NAME="Ubuntu 22.04.2 LTS"
 NAME="Ubuntu"
 VERSION_ID="22.04"
-VERSION="22.04 LTS (Jammy Jellyfish)"
+VERSION="22.04.2 LTS (Jammy Jellyfish)"
 VERSION_CODENAME=jammy
 ID=ubuntu
 ID_LIKE=debian
@@ -14,7 +14,7 @@ HOME_URL="https://www.ubuntu.com/"
 SUPPORT_URL="https://help.ubuntu.com/"
 BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
 PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
-UBUNTU_CODENAME=jamm
+UBUNTU_CODENAME=jammy
 
 apt 업데이트
 apt update
