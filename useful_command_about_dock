@@ -1,7 +1,7 @@
 Make default docker image for dev test
 
 x86 도커 환경 생성
-docker run -it -v /data/tmp:/data/tmp -p 2001:22 -p 2002:3389 -p 2003:443 --name dreamhack ubuntu
+docker run -it -v /data/tmp:/data/tmp --name devbed ubuntu
 cat /etc/os-release 
 PRETTY_NAME="Ubuntu 22.04 LTS"
 NAME="Ubuntu"
@@ -15,9 +15,12 @@ SUPPORT_URL="https://help.ubuntu.com/"
 BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
 PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
 UBUNTU_CODENAME=jamm
- 
+
+apt 업데이트
+apt update
+
 vim 설치
-apt install vim
+apt install vim curl
  
 ssh 설치
 apt install openssh-server
@@ -32,6 +35,23 @@ passwd root
 123
  
 xrdp, xfce4 설치
-apt install xrdp xfce4 xfce4-terminal firefox fonts-nanum*
+apt install -y xrdp xfce4 xfce4-terminal firefox fonts-nanum*
 echo "xfce4-session" > /root/.xsession
 service xrdp restart
+
+code-server 설치
+curl -fsSL https://code-server.dev/install.sh | sh
+mkdir /root/.config/code-server
+vi /root/.config/code-server/config.yaml
+bind-addr: 0.0.0.0:443
+auth: password
+password: 123
+cert: true
+  * (Optional) Allows code-server to listen on port 443
+    - sudo setcap cap_net_bind_service=+ep /usr/lib/code-server/lib/node
+
+도커 이미지화
+docker commit devbed devbed
+
+도커 컨테이너 생성
+docker run -it -v /data/tmp:/data/tmp -p 3001:22 -p 3002:3389 -p 3003:443 --name test1 devbed
