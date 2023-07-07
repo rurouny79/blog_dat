@@ -52,17 +52,20 @@ do
         codeserverpscnt=$(ps aux | grep code-server | wc | awk '{print $1;}')
         if [ $codeserverpscnt -gt 4 ]
         then
+                echo "codeserverpscnt" > /tmp/whynotsleep.log
                 timecnt=0
         fi
 
         ptscnt=$(who | grep pts | wc | awk '{print $1;}')
         if [ $ptscnt -gt 0 ]
         then
+                echo "ptscnt" > /tmp/whynotsleep.log
                 timecnt=0
         fi
 
         if [ -f /tmp/extendsleep ]
         then
+                echo "extendsleep" > /tmp/whynotsleep.log
                 timecnt=0
                 rm /tmp/extendsleep
         fi
@@ -71,15 +74,18 @@ do
         dow=$(date +%u) # 1 is Monday
         if [ "$hour" -ge 23 -a "$dow" -eq 4 ]
         then
+                echo "hourdow" > /tmp/whynotsleep.log
                 timecnt=0
         elif [ "$hour" -le 6 -a "$dow" -eq 5 ]
         then
+                echo "hourdow" > /tmp/whynotsleep.log
                 timecnt=0
         fi
 
         ldavg=$(cat /proc/loadavg | awk '{print $1;}')
         if [ "$ldavg" != "0.00" ]
         then
+                echo "ldavg" > /tmp/whynotsleep.log
                 timecnt=0
         fi
 
