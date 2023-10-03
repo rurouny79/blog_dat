@@ -49,48 +49,61 @@ do
         timecnt=$((timecnt+1))
 
         # check time reset
-        codeserverpscnt=$(ps aux | grep code-server | wc | awk '{print $1;}')
-        if [ $codeserverpscnt -gt 4 ]
-        then
-                echo "codeserverpscnt" > /tmp/whynotsleep.log
-                timecnt=0
-        fi
+        #codeserverpscnt=$(ps aux | grep code-server | wc | awk '{print $1;}')
+        #if [ $codeserverpscnt -gt 4 ]
+        #then
+        #        date >> /tmp/whynotsleep.log
+        #        echo "codeserverpscnt:$codeserverpscnt" >> /tmp/whynotsleep.log
+        #        timecnt=0
+	#	continue
+        #fi
 
-        ptscnt=$(who | grep pts | wc | awk '{print $1;}')
-        if [ $ptscnt -gt 0 ]
-        then
-                echo "ptscnt" > /tmp/whynotsleep.log
-                timecnt=0
-        fi
+        #ptscnt=$(who | grep pts | wc | awk '{print $1;}')
+        #if [ $ptscnt -gt 0 ]
+        #then
+        #        date >> /tmp/whynotsleep.log
+        #        echo "ptscnt:$ptscnt" >> /tmp/whynotsleep.log
+        #        timecnt=0
+	#	continue
+        #fi
 
-        if [ -f /tmp/extendsleep ]
+	ldavg=$(cat /proc/loadavg | awk '{print $1;}')
+	ldavg_ret=$(echo "$ldavg > 0.1" | bc)
+        if [ $ldavg_ret -eq "1" ]
         then
-                echo "extendsleep" > /tmp/whynotsleep.log
+                date >> /tmp/whynotsleep.log
+                echo "ldavg:$ldavg" >> /tmp/whynotsleep.log
                 timecnt=0
-                rm /tmp/extendsleep
+		continue
         fi
 
         hour=$(date +%H)
         dow=$(date +%u) # 1 is Monday
         if [ "$hour" -ge 23 -a "$dow" -eq 4 ]
         then
-                echo "hourdow" > /tmp/whynotsleep.log
+                date >> /tmp/whynotsleep.log
+                echo "hourdow" >> /tmp/whynotsleep.log
                 timecnt=0
+		continue
         elif [ "$hour" -le 6 -a "$dow" -eq 5 ]
         then
-                echo "hourdow" > /tmp/whynotsleep.log
+                date >> /tmp/whynotsleep.log
+                echo "hourdow" >> /tmp/whynotsleep.log
                 timecnt=0
+		continue
         fi
 
-        ldavg=$(cat /proc/loadavg | awk '{print $1;}')
-        if [ "$ldavg" != "0.00" ]
+        if [ -f /tmp/nosleep ]
         then
-                echo "ldavg" > /tmp/whynotsleep.log
+                date >> /tmp/whynotsleep.log
+                echo "nosleep flag" >> /tmp/whynotsleep.log
                 timecnt=0
+                rm /tmp/nosleep
+		continue
         fi
 
         # desicion
-        if [ "$timecnt" -gt 600 ]
+        if [ "$timecnt" -gt 21600 ]
         then
                 timecnt=0
 
@@ -104,8 +117,11 @@ do
                         time_t=$((time_t+604800))
                 fi
 
+                echo "wakealarm:$time_t" > /tmp/whynotsleep.log
+
                 echo 0 > /sys/class/rtc/rtc0/wakealarm
                 echo $time_t > /sys/class/rtc/rtc0/wakealarm
+		systemctl suspend
         fi
 done
 
