@@ -5,3 +5,7 @@ https://docs.kernel.org/usb/usbmon.html
 sudo mount -t debugfs none_debugs /sys/kernel/debug
 sudo modprobe usbmon
 sudo cat cat /sys/kernel/debug/usb/usbmon/*
+
+# mouse 
+https://wiki.osdev.org/Mouse_Input
+https://forums.raspberrypi.com/viewtopic.php?t=234495
