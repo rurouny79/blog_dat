@@ -2,9 +2,12 @@
 https://docs.kernel.org/usb/usbmon.html
 
 # simple command
-sudo mount -t debugfs none_debugs /sys/kernel/debug
-sudo modprobe usbmon
-sudo cat /sys/kernel/debug/usb/usbmon/*
+(sudo in essential)
+mount -t debugfs none_debugs /sys/kernel/debug
+modprobe usbmon
+cat /sys/kernel/debug/usb/usbmon/*
+or
+cat /sys/kernel/debug/usb/usbmon/* | grep Ii
 
 # mouse 
 https://wiki.osdev.org/Mouse_Input
