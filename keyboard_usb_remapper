@@ -13,3 +13,19 @@ cat /sys/kernel/debug/usb/usbmon/* | grep Ii
 # mouse 
 https://wiki.osdev.org/Mouse_Input
 https://forums.raspberrypi.com/viewtopic.php?t=234495
+
+# example - press a and release a
+82edb580 133216510 C Ii:1:005:1 0:8 8 = 00000400 00000000
+82edb580 133216652 S Ii:1:005:1 -115:8 8 <
+82edb580 133328530 C Ii:1:005:1 0:8 8 = 00000000 00000000
+82edb580 133328681 S Ii:1:005:1 -115:8 8 <
+
+# example - press a, b and release b, a
+82edb580 170544990 C Ii:1:005:1 0:8 8 = 00000400 00000000
+82edb580 170545110 S Ii:1:005:1 -115:8 8 <
+82edb580 171129016 C Ii:1:005:1 0:8 8 = 00000405 00000000
+82edb580 171129160 S Ii:1:005:1 -115:8 8 <
+82edb580 172201019 C Ii:1:005:1 0:8 8 = 00000400 00000000
+82edb580 172201165 S Ii:1:005:1 -115:8 8 <
+82edb580 172745014 C Ii:1:005:1 0:8 8 = 00000000 00000000
+82edb580 172745135 S Ii:1:005:1 -115:8 8 <
