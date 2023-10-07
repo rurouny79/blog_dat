@@ -1,1 +1,7 @@
+# refrence
+https://docs.kernel.org/usb/usbmon.html
 
+# simple command
+sudo mount -t debugfs none_debugs /sys/kernel/debug
+sudo modprobe usbmon
+sudo cat cat /sys/kernel/debug/usb/usbmon/*
