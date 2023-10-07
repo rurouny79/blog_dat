@@ -10,9 +10,9 @@ cat /sys/kernel/debug/usb/usbmon/*
 or
 cat /sys/kernel/debug/usb/usbmon/* | grep Ii
 
-# mouse 
-https://wiki.osdev.org/Mouse_Input
-https://forums.raspberrypi.com/viewtopic.php?t=234495
+# send test key
+printf "%b" "\x00\x00\x04\x00\x00\x00\x00\x00" | dd of=/dev/hidg0 2>/dev/null
+printf "%b" "\x00\x00\x00\x00\x00\x00\x00\x00" | dd of=/dev/hidg0 2>/dev/null
 
 # example - press a and release a
 82edb580 133216510 C Ii:1:005:1 0:8 8 = 00000400 00000000
@@ -29,3 +29,7 @@ https://forums.raspberrypi.com/viewtopic.php?t=234495
 82edb580 172201165 S Ii:1:005:1 -115:8 8 <
 82edb580 172745014 C Ii:1:005:1 0:8 8 = 00000000 00000000
 82edb580 172745135 S Ii:1:005:1 -115:8 8 <
+
+# mouse 
+https://wiki.osdev.org/Mouse_Input
+https://forums.raspberrypi.com/viewtopic.php?t=234495
