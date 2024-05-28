@@ -18,7 +18,7 @@ cpu cooler : nh-d16
   * /etc/modules-load.d/modules.conf
     - nct6775
     
-1. wifi-pcie setting
+1. (Optional) wifi-pcie setting
   $ sudo apt install network-manager
   * /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg
   network:
