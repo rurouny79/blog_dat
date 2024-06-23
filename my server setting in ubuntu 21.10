@@ -12,7 +12,7 @@ cpu cooler : nh-d16
 1. install openssh-server
   * select [*] in ubuntu server install process
   
-1. ryzen zen3 setting
+1. ryzen zen3 setting for access temperature sensor
   * /etc/default/grub
     - GRUB_CMDLINE_LINUX="acpi_enforce_resources=lax"
   * /etc/modules-load.d/modules.conf
