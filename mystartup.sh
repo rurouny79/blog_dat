@@ -41,6 +41,9 @@ done
 docker exec smb service smbd start
 docker exec svn service apache2 start
 
+# start virtual machine instances
+# virsh start xxx
+
 # start try sleep (final opt action 1)
 timecnt=0
 while true
