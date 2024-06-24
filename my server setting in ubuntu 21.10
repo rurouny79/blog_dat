@@ -1,6 +1,7 @@
 server setting in ubuntu 22.04
 
 cpu : 5950x
+gpu : rtx2070
 mainboard : ASUS TUF GAMING B550-PRO
 cpu cooler : nh-d16
 
@@ -205,3 +206,280 @@ cpu cooler : nh-d16
 1. disk check
   $ sudo apt-get install smartmontools
   $ sudo smartctl --all /dev/sda
+
+===== belows are for Remote Streaming (QEMU/KVM, GPU PASSTHROUGH) =====
+
+1. install qemu/kvm environment
+  * enable cpu kvm suport in bios
+    - AMD V
+    - AMD IOMMU
+
+  * check kvm supported
+    $ kvm-ok
+      INFO: /dev/kvm exists
+      KVM acceleration can be used
+
+  * Add current user in KVM Group and check the authority
+    $ sudo adduser $(id -un) kvm
+      sudo: unable to resolve host ryuNote
+      Adding user `ryu' to group `kvm' ...
+      Adding user ryu to group kvm
+      Done.
+
+    $ virsh list
+       Id    Name                           State
+      ----------------------------------------------------
+      #
+
+
+  * Install virt-manager (GUI KVM Manager)
+    $ sudo apt-get install virt-manager
+
+  * copy OVMF bios firmware
+
+#######################################
+# gpu passthrough 활성화
+https://vulcan.site/proxmox-GPU-passthrough/
+
+# grub 설정
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash amd_iommu=on iommu=pt pcie_acs_override=downstream,multifunction video=efifb:off vfio-pci.ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash amd_iommu=on iommu=pt video=efifb:off vfio-pci.ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash amd_iommu=on video=efifb:off vfio-pci.ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash video=efifb:off vfio-pci.ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb"
+
+sudo update-grub
+
+# driver module 설정
+cat /etc/modprobe.d/blacklist
+blacklist nvidiafb
+blacklist nouveau
+blacklist nvidia
+
+cat /etc/modprobe.d/blacklist
+#blacklist nvidiafb
+#blacklist nouveau
+#blacklist nvidia
+
+# vfio.conf 설정
+cat /etc/modprobe.d/vfio.conf 
+options vfio-pci ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb disable_vga=1
+softdep nouveau pre: vfio-pci
+
+cat /etc/modprobe.d/vfio.conf 
+#options vfio-pci ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb disable_vga=1
+#softdep nouveau pre: vfio-pci
+
+# kvm.conf 설정
+cat /etc/modprobe.d/kvm.conf
+options kvm ignore_msrs=1
+
+cat /etc/modprobe.d/kvm.conf 
+#options kvm ignore_msrs=1
+
+# initramfs 적용
+sudo update-initramfs -u
+reboot
+
+# 확인
+root@kraken:/home/ruro# virsh nodedev-dumpxml pci_0000_07_00_0
+<device>
+  <name>pci_0000_07_00_0</name>
+  <path>/sys/devices/pci0000:00/0000:00:03.1/0000:07:00.0</path>
+  <parent>pci_0000_00_03_1</parent>
+  <driver>
+    <name>vfio-pci</name>
+  </driver>
+  <capability type='pci'>
+    <class>0x030000</class>
+    <domain>0</domain>
+    <bus>7</bus>
+    <slot>0</slot>
+    <function>0</function>
+    <product id='0x1f02'>TU106 [GeForce RTX 2070]</product>
+    <vendor id='0x10de'>NVIDIA Corporation</vendor>
+    <iommuGroup number='16'>
+      <address domain='0x0000' bus='0x07' slot='0x00' function='0x2'/>
+      <address domain='0x0000' bus='0x07' slot='0x00' function='0x0'/>
+      <address domain='0x0000' bus='0x07' slot='0x00' function='0x3'/>
+      <address domain='0x0000' bus='0x07' slot='0x00' function='0x1'/>
+    </iommuGroup>
+    <pci-express>
+      <link validity='cap' port='0' speed='8' width='16'/>
+      <link validity='sta' speed='2.5' width='16'/>
+    </pci-express>
+  </capability>
+</device>
+
+<hostdev mode='subsystem' type='pci' managed='yes'>  
+  <driver name='vfio'/>
+    <source>
+      <address domain='0x0000' bus='0x07' slot='0x00' function='0x0'/>
+    </source>
+</hostdev>
+
+
+07:00.0 VGA compatible controller [0300]: NVIDIA Corporation TU106 [GeForce RTX 2070] [10de:1f02] (rev a1)
+07:00.1 Audio device [0403]: NVIDIA Corporation TU106 High Definition Audio Controller [10de:10f9] (rev a1)
+07:00.2 USB controller [0c03]: NVIDIA Corporation TU106 USB 3.1 Host Controller [10de:1ada] (rev a1)
+07:00.3 Serial bus controller [0c80]: NVIDIA Corporation TU106 USB Type-C UCSI Controller [10de:1adb] (rev a1)
+
+
+
+virsh nodedev-detach pci_0000_07_00_2
+virsh nodedev-detach pci_0000_07_00_3
+
+
+
+#######################################
+# Make Window Instance
+
+# Select UEFI OVMF_CODE_4M.fd
+
+# Add Video, Audio as PIC Device
+
+# Install windows
+
+# Install NVIDIA formal driver (0x43 error is gone)
+
+#######################################
+# Rdp setting
+
+# Turn on the window remote allow setting
+
+
+#######################################
+# Game Streaming Server setting
+
+# Install Sunshine Install package
+https://github.com/LizardByte/Sunshine/releases
+
+# Setting accound and password
+
+# paring with host moonligh program
+
+#######################################
+# RDP, moonlight portfarwd setting for remote access from outside network
+https://m.blog.naver.com/anjae83/222064015099
+
+# run script (portmap_streaming.sh)
+
+# parameter
+TARGET=68
+
+# enable rdp
+iptables -I INPUT -p tcp -s 0.0.0.0/0 -d 192.168.0.2 --dport 43389 -j ACCEPT
+iptables -I FORWARD -m tcp -p tcp -d 192.168.122.$TARGET --dport 3389 -j ACCEPT
+iptables -I FORWARD -m state -p tcp -d 192.168.0.0/24 --state NEW,RELATED,ESTABLISHED -j ACCEPT
+iptables -t nat -I PREROUTING -p tcp -d 192.168.0.2 --dport 43389 -j DNAT --to-destination 192.168.122.$TARGET:3389
+
+# enable sunshine
+iptables -I INPUT -p tcp -s 0.0.0.0/0 -d 192.168.0.2 --dport 47984 -j ACCEPT
+iptables -I INPUT -p udp -s 0.0.0.0/0 -d 192.168.0.2 --dport 47989 -j ACCEPT
+iptables -I INPUT -p udp -s 0.0.0.0/0 -d 192.168.0.2 --dport 47998 -j ACCEPT
+iptables -I INPUT -p udp -s 0.0.0.0/0 -d 192.168.0.2 --dport 47999 -j ACCEPT
+iptables -I INPUT -p udp -s 0.0.0.0/0 -d 192.168.0.2 --dport 48000 -j ACCEPT
+iptables -I INPUT -p udp -s 0.0.0.0/0 -d 192.168.0.2 --dport 48002 -j ACCEPT
+iptables -I INPUT -p tcp -s 0.0.0.0/0 -d 192.168.0.2 --dport 48010 -j ACCEPT
+iptables -I INPUT -p udp -s 0.0.0.0/0 -d 192.168.0.2 --dport 48010 -j ACCEPT
+
+
+iptables -I FORWARD -m tcp -p tcp -d 192.168.122.$TARGET --dport 47984 -j ACCEPT
+iptables -I FORWARD -m tcp -p tcp -d 192.168.122.$TARGET --dport 47989 -j ACCEPT
+iptables -I FORWARD -m udp -p udp -d 192.168.122.$TARGET --dport 47998 -j ACCEPT
+iptables -I FORWARD -m udp -p udp -d 192.168.122.$TARGET --dport 47999 -j ACCEPT
+iptables -I FORWARD -m udp -p udp -d 192.168.122.$TARGET --dport 48000 -j ACCEPT
+iptables -I FORWARD -m udp -p udp -d 192.168.122.$TARGET --dport 48002 -j ACCEPT
+iptables -I FORWARD -m tcp -p tcp -d 192.168.122.$TARGET --dport 48010 -j ACCEPT
+iptables -I FORWARD -m udp -p udp -d 192.168.122.$TARGET --dport 48010 -j ACCEPT
+
+
+iptables -I FORWARD -m state -p tcp -d 192.168.0.0/24 --state NEW,RELATED,ESTABLISHED -j ACCEPT
+iptables -I FORWARD -m state -p udp -d 192.168.0.0/24 --state NEW,RELATED,ESTABLISHED -j ACCEPT
+
+
+iptables -t nat -I PREROUTING -p tcp -d 192.168.0.2 --dport 47984 -j DNAT --to-destination 192.168.122.$TARGET:47984
+iptables -t nat -I PREROUTING -p tcp -d 192.168.0.2 --dport 47989 -j DNAT --to-destination 192.168.122.$TARGET:47989
+iptables -t nat -I PREROUTING -p udp -d 192.168.0.2 --dport 47998 -j DNAT --to-destination 192.168.122.$TARGET:47998
+iptables -t nat -I PREROUTING -p udp -d 192.168.0.2 --dport 47999 -j DNAT --to-destination 192.168.122.$TARGET:47999
+iptables -t nat -I PREROUTING -p udp -d 192.168.0.2 --dport 48000 -j DNAT --to-destination 192.168.122.$TARGET:48000
+iptables -t nat -I PREROUTING -p udp -d 192.168.0.2 --dport 48002 -j DNAT --to-destination 192.168.122.$TARGET:48002
+iptables -t nat -I PREROUTING -p tcp -d 192.168.0.2 --dport 48010 -j DNAT --to-destination 192.168.122.$TARGET:48010
+iptables -t nat -I PREROUTING -p udp -d 192.168.0.2 --dport 48010 -j DNAT --to-destination 192.168.122.$TARGET:48010
+
+#######################################
+# endup
+
+# disable internal monitor in virt-manager
+default video to None
+
+
+#####################################################################################################################
+#####################################################################################################################
+#####################################################################################################################
+
+
+#######################################
+# 게스트 윈도우에 gpu passthrough 설정
+
+#######################################
+
+
+#######################################
+#
+you are not currently using a display attached to an NVIDIA GPU
+https://gist.github.com/Misairu-G/616f7b2756c488148b7309addc940b28
+
+
+
+
+
+#######################################
+# NVIDIA Streamer Server Component 의 과도한 GPU 점유율 문제 (Video Encode, 3D)
+
+
+
+#######################################
+# KVM을 터미널로 사용하고자 하시는 분들은 아래 글이 도움이 될 것 같습니다.
+https://www.server-world.info/en/note?os=CentOS_7&p=kvm&f=9
+
+
+
+# 참고 gpu passthrough 후 hdmi 출력 안되고 커서만 깜빡이는 현상
+To update, I finally got it working by changing the following in the grub file:
+GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on iommu=pt pcie_acs_override=downstream,multifunction video=efifb:eek:ff"
+to
+GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on iommu=pt pcie_acs_override=downstream,multifunction video=efifb:off"
+
+This was based on:
+https://forum.proxmox.com/threads/problem-with-gpu-passthrough.55918/post-257457
+
+
+# 참고
+video=vesafb:off,efifb:off
+
+
+#
+/root/portmap_moonlight.sh
+virsh start win11
+
+# nvidia 드라이버 43 에러 표시 해결, *표시 라인 추가
+장치관리자 코드43 에러
+https://blog.boxcorea.com/wp/archives/3049
+
+  <features>
+    <acpi/>
+    <apic/>
+    <hyperv>
+      <relaxed state='on'/>
+      <vapic state='on'/>
+      <spinlocks state='on' retries='8191'/>
+      <vendor_id state='on' value='1234567890ab'/>*
+    </hyperv>
+    <kvm>
+      <hidden state='on'/>*
+    </kvm>
+    <vmport state='off'/>*
+    <ioapic driver='kvm'/>*
+  </features>
+
+
