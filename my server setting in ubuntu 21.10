@@ -1,7 +1,8 @@
 server setting in ubuntu 22.04
 
 cpu : 5950x
-gpu : rtx2070
+gpu1 : NVIDIA GT218
+gpu2 : NVIDIA rtx2070 (for gpu passthrough)
 mainboard : ASUS TUF GAMING B550-PRO
 cpu cooler : nh-d16
 
