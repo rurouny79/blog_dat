@@ -231,138 +231,39 @@ cpu cooler : nh-d16
       ----------------------------------------------------
       #
 
+  * Install virt-manager(GUI KVM Manager), ovmf
+    $ sudo apt-get install virt-manager ovmf ?
 
-  * Install virt-manager (GUI KVM Manager)
-    $ sudo apt-get install virt-manager
+  * Copy OVMF bios firmware
 
-  * copy OVMF bios firmware
+  * Install virtio
 
-#######################################
-# gpu passthrough 활성화
-https://vulcan.site/proxmox-GPU-passthrough/
+1. gpu passthrough activation
+  * get device number
+    $ lspci -nn
+    
+  * grub setting
+    - /etc/default/group 
+      GRUB_CMDLINE_LINUX_DEFAULT="quiet splash video=efifb:off vfio-pci.ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb"
+    $ sudo update-grub
 
-# grub 설정
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash amd_iommu=on iommu=pt pcie_acs_override=downstream,multifunction video=efifb:off vfio-pci.ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb"
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash amd_iommu=on iommu=pt video=efifb:off vfio-pci.ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb"
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash amd_iommu=on video=efifb:off vfio-pci.ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb"
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash video=efifb:off vfio-pci.ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb"
+1. Make Window Image
+  * Select UEFI OVMF_CODE_4M.fd
+  * Add Video, Audio as PIC Device
+  * Install windows
+  * Install NVIDIA formal driver (after this, 0x43 error is resolved)
 
-sudo update-grub
+1. Rdp setting
+  * Turn on the window remote allow setting
 
-# driver module 설정
-cat /etc/modprobe.d/blacklist
-blacklist nvidiafb
-blacklist nouveau
-blacklist nvidia
+1. Game Streaming Server setting
+  * Install Sunshine Install package
+    https://github.com/LizardByte/Sunshine/releases
+  * Setting account and password
+  * Paring with host moonlight client program
 
-cat /etc/modprobe.d/blacklist
-#blacklist nvidiafb
-#blacklist nouveau
-#blacklist nvidia
-
-# vfio.conf 설정
-cat /etc/modprobe.d/vfio.conf 
-options vfio-pci ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb disable_vga=1
-softdep nouveau pre: vfio-pci
-
-cat /etc/modprobe.d/vfio.conf 
-#options vfio-pci ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb disable_vga=1
-#softdep nouveau pre: vfio-pci
-
-# kvm.conf 설정
-cat /etc/modprobe.d/kvm.conf
-options kvm ignore_msrs=1
-
-cat /etc/modprobe.d/kvm.conf 
-#options kvm ignore_msrs=1
-
-# initramfs 적용
-sudo update-initramfs -u
-reboot
-
-# 확인
-root@kraken:/home/ruro# virsh nodedev-dumpxml pci_0000_07_00_0
-<device>
-  <name>pci_0000_07_00_0</name>
-  <path>/sys/devices/pci0000:00/0000:00:03.1/0000:07:00.0</path>
-  <parent>pci_0000_00_03_1</parent>
-  <driver>
-    <name>vfio-pci</name>
-  </driver>
-  <capability type='pci'>
-    <class>0x030000</class>
-    <domain>0</domain>
-    <bus>7</bus>
-    <slot>0</slot>
-    <function>0</function>
-    <product id='0x1f02'>TU106 [GeForce RTX 2070]</product>
-    <vendor id='0x10de'>NVIDIA Corporation</vendor>
-    <iommuGroup number='16'>
-      <address domain='0x0000' bus='0x07' slot='0x00' function='0x2'/>
-      <address domain='0x0000' bus='0x07' slot='0x00' function='0x0'/>
-      <address domain='0x0000' bus='0x07' slot='0x00' function='0x3'/>
-      <address domain='0x0000' bus='0x07' slot='0x00' function='0x1'/>
-    </iommuGroup>
-    <pci-express>
-      <link validity='cap' port='0' speed='8' width='16'/>
-      <link validity='sta' speed='2.5' width='16'/>
-    </pci-express>
-  </capability>
-</device>
-
-<hostdev mode='subsystem' type='pci' managed='yes'>  
-  <driver name='vfio'/>
-    <source>
-      <address domain='0x0000' bus='0x07' slot='0x00' function='0x0'/>
-    </source>
-</hostdev>
-
-
-07:00.0 VGA compatible controller [0300]: NVIDIA Corporation TU106 [GeForce RTX 2070] [10de:1f02] (rev a1)
-07:00.1 Audio device [0403]: NVIDIA Corporation TU106 High Definition Audio Controller [10de:10f9] (rev a1)
-07:00.2 USB controller [0c03]: NVIDIA Corporation TU106 USB 3.1 Host Controller [10de:1ada] (rev a1)
-07:00.3 Serial bus controller [0c80]: NVIDIA Corporation TU106 USB Type-C UCSI Controller [10de:1adb] (rev a1)
-
-
-
-virsh nodedev-detach pci_0000_07_00_2
-virsh nodedev-detach pci_0000_07_00_3
-
-
-
-#######################################
-# Make Window Instance
-
-# Select UEFI OVMF_CODE_4M.fd
-
-# Add Video, Audio as PIC Device
-
-# Install windows
-
-# Install NVIDIA formal driver (0x43 error is gone)
-
-#######################################
-# Rdp setting
-
-# Turn on the window remote allow setting
-
-
-#######################################
-# Game Streaming Server setting
-
-# Install Sunshine Install package
-https://github.com/LizardByte/Sunshine/releases
-
-# Setting accound and password
-
-# paring with host moonligh program
-
-#######################################
-# RDP, moonlight portfarwd setting for remote access from outside network
-https://m.blog.naver.com/anjae83/222064015099
-
-# run script (portmap_streaming.sh)
-
+1. RDP, sunshine port forward setting for remote access from outside network
+  * run script (portmap_streaming.sh)
 # parameter
 TARGET=68
 
@@ -382,7 +283,6 @@ iptables -I INPUT -p udp -s 0.0.0.0/0 -d 192.168.0.2 --dport 48002 -j ACCEPT
 iptables -I INPUT -p tcp -s 0.0.0.0/0 -d 192.168.0.2 --dport 48010 -j ACCEPT
 iptables -I INPUT -p udp -s 0.0.0.0/0 -d 192.168.0.2 --dport 48010 -j ACCEPT
 
-
 iptables -I FORWARD -m tcp -p tcp -d 192.168.122.$TARGET --dport 47984 -j ACCEPT
 iptables -I FORWARD -m tcp -p tcp -d 192.168.122.$TARGET --dport 47989 -j ACCEPT
 iptables -I FORWARD -m udp -p udp -d 192.168.122.$TARGET --dport 47998 -j ACCEPT
@@ -392,10 +292,8 @@ iptables -I FORWARD -m udp -p udp -d 192.168.122.$TARGET --dport 48002 -j ACCEPT
 iptables -I FORWARD -m tcp -p tcp -d 192.168.122.$TARGET --dport 48010 -j ACCEPT
 iptables -I FORWARD -m udp -p udp -d 192.168.122.$TARGET --dport 48010 -j ACCEPT
 
-
 iptables -I FORWARD -m state -p tcp -d 192.168.0.0/24 --state NEW,RELATED,ESTABLISHED -j ACCEPT
 iptables -I FORWARD -m state -p udp -d 192.168.0.0/24 --state NEW,RELATED,ESTABLISHED -j ACCEPT
-
 
 iptables -t nat -I PREROUTING -p tcp -d 192.168.0.2 --dport 47984 -j DNAT --to-destination 192.168.122.$TARGET:47984
 iptables -t nat -I PREROUTING -p tcp -d 192.168.0.2 --dport 47989 -j DNAT --to-destination 192.168.122.$TARGET:47989
@@ -406,11 +304,8 @@ iptables -t nat -I PREROUTING -p udp -d 192.168.0.2 --dport 48002 -j DNAT --to-d
 iptables -t nat -I PREROUTING -p tcp -d 192.168.0.2 --dport 48010 -j DNAT --to-destination 192.168.122.$TARGET:48010
 iptables -t nat -I PREROUTING -p udp -d 192.168.0.2 --dport 48010 -j DNAT --to-destination 192.168.122.$TARGET:48010
 
-#######################################
-# endup
-
-# disable internal monitor in virt-manager
-default video to None
+1. Disable internal virt-manager monitor
+  * default video to None
 
 
 #####################################################################################################################
@@ -483,3 +378,81 @@ https://blog.boxcorea.com/wp/archives/3049
   </features>
 
 
+#
+      
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash amd_iommu=on iommu=pt pcie_acs_override=downstream,multifunction video=efifb:off vfio-pci.ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash amd_iommu=on iommu=pt video=efifb:off vfio-pci.ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash amd_iommu=on video=efifb:off vfio-pci.ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb"
+
+* driver module 설정
+cat /etc/modprobe.d/blacklist
+blacklist nvidiafb
+blacklist nouveau
+blacklist nvidia
+
+# vfio.conf 설정
+cat /etc/modprobe.d/vfio.conf 
+options vfio-pci ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb disable_vga=1
+softdep nouveau pre: vfio-pci
+
+# kvm.conf 설정
+cat /etc/modprobe.d/kvm.conf
+options kvm ignore_msrs=1
+
+# initramfs 적용
+sudo update-initramfs -u
+reboot
+
+# 확인
+root@kraken:/home/ruro# virsh nodedev-dumpxml pci_0000_07_00_0
+<device>
+  <name>pci_0000_07_00_0</name>
+  <path>/sys/devices/pci0000:00/0000:00:03.1/0000:07:00.0</path>
+  <parent>pci_0000_00_03_1</parent>
+  <driver>
+    <name>vfio-pci</name>
+  </driver>
+  <capability type='pci'>
+    <class>0x030000</class>
+    <domain>0</domain>
+    <bus>7</bus>
+    <slot>0</slot>
+    <function>0</function>
+    <product id='0x1f02'>TU106 [GeForce RTX 2070]</product>
+    <vendor id='0x10de'>NVIDIA Corporation</vendor>
+    <iommuGroup number='16'>
+      <address domain='0x0000' bus='0x07' slot='0x00' function='0x2'/>
+      <address domain='0x0000' bus='0x07' slot='0x00' function='0x0'/>
+      <address domain='0x0000' bus='0x07' slot='0x00' function='0x3'/>
+      <address domain='0x0000' bus='0x07' slot='0x00' function='0x1'/>
+    </iommuGroup>
+    <pci-express>
+      <link validity='cap' port='0' speed='8' width='16'/>
+      <link validity='sta' speed='2.5' width='16'/>
+    </pci-express>
+  </capability>
+</device>
+
+<hostdev mode='subsystem' type='pci' managed='yes'>  
+  <driver name='vfio'/>
+    <source>
+      <address domain='0x0000' bus='0x07' slot='0x00' function='0x0'/>
+    </source>
+</hostdev>
+
+
+07:00.0 VGA compatible controller [0300]: NVIDIA Corporation TU106 [GeForce RTX 2070] [10de:1f02] (rev a1)
+07:00.1 Audio device [0403]: NVIDIA Corporation TU106 High Definition Audio Controller [10de:10f9] (rev a1)
+07:00.2 USB controller [0c03]: NVIDIA Corporation TU106 USB 3.1 Host Controller [10de:1ada] (rev a1)
+07:00.3 Serial bus controller [0c80]: NVIDIA Corporation TU106 USB Type-C UCSI Controller [10de:1adb] (rev a1)
+
+
+
+virsh nodedev-detach pci_0000_07_00_2
+virsh nodedev-detach pci_0000_07_00_3
+
+
+#
+  * https://blog.naver.com/PostView.nhn?blogId=makdan&logNo=221398788627
+  * https://vulcan.site/proxmox-GPU-passthrough/
+https://m.blog.naver.com/anjae83/222064015099
