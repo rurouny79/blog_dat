@@ -237,8 +237,6 @@ cpu cooler : nh-d16
 
   * Copy OVMF bios firmware
 
-  * Install virtio
-
 1. gpu passthrough activation
   * get device number
     $ lspci -nn
