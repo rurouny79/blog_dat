@@ -233,9 +233,11 @@ cpu cooler : nh-d16
       #
 
   * Install virt-manager(GUI KVM Manager), ovmf
-    $ sudo apt-get install virt-manager ovmf ?
+    $ sudo apt-get install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager ovmf
 
   * Copy OVMF bios firmware
+    $ sudo cp /usr/share/OVMF/OVMF_CODE.fd /var/lib/libvirt/images/OVMF_CODE.fd
+    $ sudo cp /usr/share/OVMF/OVMF_VARS.fd /var/lib/libvirt/images/OVMF_VARS.fd
 
 1. gpu passthrough activation
   * get device number
