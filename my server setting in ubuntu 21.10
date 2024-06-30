@@ -241,12 +241,12 @@ cpu cooler : nh-d16
     $ sudo cp /usr/share/OVMF/OVMF_VARS.fd /var/lib/libvirt/images/OVMF_VARS.fd
 
 1. gpu passthrough activation
-  * get device number
-    $ lspci -nn
+  * get device ids number
+    $ lspci -nn | grep NVIDIA
     
   * grub setting
     - /etc/default/group 
-      GRUB_CMDLINE_LINUX_DEFAULT="quiet splash video=efifb:off vfio-pci.ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb"
+      GRUB_CMDLINE_LINUX_DEFAULT="video=efifb:off vfio-pci.ids=10de:2783,10de:22bc"
       (or GRUB_CMDLINE_LINUX_DEFAULT="quiet splash amd_iommu=on iommu=pt pcie_acs_override=downstream,multifunction video=efifb:off vfio-pci.ids=10de:1f02,10de:10f9,10de:1ada,10de:1adb")
     $ sudo update-grub
 
