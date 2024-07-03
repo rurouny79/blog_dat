@@ -257,6 +257,10 @@ cpu cooler : nh-d16
   * Install NVIDIA formal driver (after this, 0x43 error is resolved)
   * Install virtio driver
     https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso
+  * Add XML configuration for prevent virtual machine detecting error
+    <os>
+	    <smbios mode='host'/>
+    </os>
 
 1. Rdp setting
   * Turn on the window remote allow setting
