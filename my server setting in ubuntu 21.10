@@ -315,3 +315,14 @@ iptables -t nat -I PREROUTING -p udp -d 192.168.0.2 --dport 48010 -j DNAT --to-d
 
 1. Disable internal virt-manager monitor
   * default video to None
+
+1. Add forced machine restart script
+  * /usr/lib/systemd/system-sleep/kvm-restart.sh
+#!/bin/bash
+
+if [ "$1" = "post" ]; then
+  VM_NAME="win11"
+
+  virsh destroy $VM_NAME
+  virsh start $VM_NAME
+fi
