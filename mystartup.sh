@@ -101,7 +101,6 @@ do
                 date >> /tmp/whynotsleep.log
                 echo "nosleep flag" >> /tmp/whynotsleep.log
                 timecnt=0
-                rm /tmp/nosleep
 		continue
         fi
 
