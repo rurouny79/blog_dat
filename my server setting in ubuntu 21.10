@@ -325,4 +325,6 @@ if [ "$1" = "post" ]; then
 
   virsh destroy $VM_NAME
   virsh start $VM_NAME
+
+  echo "$(date) : kvm-restart, win11" >> /tmp/kvm-restart.log
 fi
