@@ -30,6 +30,9 @@ docker exec svn service apache2 start
 virsh start win11
 virsh start ubuntu22.04
 
+# start port monitoring
+/myopt/port_monitoring.sh&
+
 # start try sleep (final opt action 1)
 timecnt=0
 while true
