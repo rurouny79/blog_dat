@@ -329,5 +329,17 @@ if [ "$1" = "post" ]; then
   echo "$(date) : kvm-restart, win11" >> /tmp/kvm-restart.log
 fi
 
+1. enable port monitoring for security
+  $ sudo apt install ssmtp tcpdump
+
+  $ sudo cat /etc/ssmtp/ssmtp.conf
+[sudo] ruro 암호:
+AuthUser=criny.master@gmail.com
+AuthPass=wjdluwkbemwjdelr
+mailhub=smtp.gmail.com:587
+UseSTARTTLS=YES
+
+  * add port_monitoring.sh in mystartup.sh
+
 1. update initramfs
   $ sudo update-initramfs -u
