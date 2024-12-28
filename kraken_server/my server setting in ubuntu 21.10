@@ -329,6 +329,11 @@ if [ "$1" = "post" ]; then
   echo "$(date) : kvm-restart, win11" >> /tmp/kvm-restart.log
 fi
 
+1. update initramfs
+  $ sudo update-initramfs -u
+
+===== belows are for Remote Streaming (QEMU/KVM, GPU PASSTHROUGH) =====
+
 1. enable port monitoring for security
   $ sudo apt install ssmtp tcpdump
 
@@ -340,6 +345,3 @@ mailhub=smtp.gmail.com:587
 UseSTARTTLS=YES
 
   * add port_monitoring.sh in mystartup.sh
-
-1. update initramfs
-  $ sudo update-initramfs -u
