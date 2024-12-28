@@ -2,7 +2,7 @@ server setting in ubuntu 22.04
 
 cpu : 5950x
 gpu1 : GeForce 210
-gpu2 : GeForce RTX 2070 (for gpu passthrough)
+gpu2 : GeForce RTX 4070 super (for gpu passthrough)
 mainboard : ASUS TUF GAMING B550-PRO
 cpu cooler : nh-d16
 
