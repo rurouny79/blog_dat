@@ -1,10 +1,10 @@
 server setting in ubuntu 22.04
 
-cpu : 5950x
+cpu : amd 5950x
 gpu1 : GeForce 210
 gpu2 : GeForce RTX 4070 super (for gpu passthrough)
 mainboard : ASUS TUF GAMING B550-PRO
-cpu cooler : nh-d16
+cpu cooler : nh-d15
 
 1. bios option
   - Load optimized default
